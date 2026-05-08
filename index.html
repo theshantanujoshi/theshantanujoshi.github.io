@@ -234,10 +234,12 @@
                 background: #000;
                 border-radius: 50%;
                 position: fixed;
+                top: 0;
+                left: 0;
                 pointer-events: none;
                 z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: transform 0.1s ease-out;
+                transform: translate3d(-50%, -50%, 0);
+                will-change: transform;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             }
 
@@ -321,6 +323,7 @@
         feather.replace();
     </script>
 
+    <!-- PixelBlast Implementation -->
     <!-- PixelBlast Implementation -->
     <script type="module">
         import * as THREE from 'https://esm.sh/three';
@@ -611,11 +614,16 @@
         // Custom Cursor & Pixel Trail Logic - Only run on mouse devices
         if (window.matchMedia('(pointer: fine)').matches) {
             const cursor = document.getElementById('custom-cursor');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let cursorX = mouseX;
+            let cursorY = mouseY;
+            let cursorScale = 1;
+            let targetScale = 1;
             
             document.addEventListener('mousemove', (e) => {
-                // Move main cursor
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
                 
                 // Spawn pixel trail
                 if (Math.random() > 0.6) { // Reduce frequency
@@ -625,7 +633,6 @@
                     pixel.style.top = (e.clientY + (Math.random() - 0.5) * 10) + 'px';
                     document.body.appendChild(pixel);
                     
-                    // Animate and remove
                     const animation = pixel.animate([
                         { opacity: 0.8, transform: 'scale(1) translateY(0)' },
                         { opacity: 0, transform: 'scale(0) translateY(10px)' }
@@ -638,15 +645,29 @@
                 }
             });
 
+            const updateCursor = () => {
+                // Lerp position
+                const lerpSpeed = 0.25; // Adjust for smoothness (lower = smoother, higher = snappier)
+                cursorX += (mouseX - cursorX) * lerpSpeed;
+                cursorY += (mouseY - cursorY) * lerpSpeed;
+                
+                // Lerp scale
+                cursorScale += (targetScale - cursorScale) * 0.2;
+                
+                cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%) scale(${cursorScale})`;
+                requestAnimationFrame(updateCursor);
+            };
+            updateCursor();
+
             // Hover expansion effect for links
             document.querySelectorAll('.link-btn, a').forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(3)';
+                    targetScale = 3;
                     cursor.style.background = 'transparent';
                     cursor.style.border = '1px solid #000';
                 });
                 el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    targetScale = 1;
                     cursor.style.background = '#000';
                     cursor.style.border = 'none';
                 });
