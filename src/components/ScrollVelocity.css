@@ -1,0 +1,29 @@
+.parallax {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.scroller {
+  display: flex;
+  white-space: nowrap;
+  text-align: center;
+  font-family: 'Parisienne', cursive;
+  font-size: 1.75rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.scroller span {
+  flex-shrink: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    font-size: 3.5rem;
+    line-height: 1.4;
+  }
+}
