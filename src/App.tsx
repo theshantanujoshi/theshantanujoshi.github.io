@@ -10,6 +10,7 @@ import MagnetLines from './components/MagnetLines';
 import FloatingLines from './components/FloatingLines';
 import DarkVeil from './components/DarkVeil';
 import PlasmaWave from './components/PlasmaWave';
+import { ReactLenis } from 'lenis/react';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -757,12 +758,13 @@ function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: s
 }
 
 function NetworkPage({ onBack }: { onBack: () => void }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<any>(null);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (containerRef.current) {
-        if (containerRef.current.scrollTop <= 0 && e.deltaY < -30) {
+      const wrapper = lenisRef.current?.wrapper;
+      if (wrapper) {
+        if (wrapper.scrollTop <= 0 && e.deltaY < -30) {
           onBack();
         }
       }
@@ -773,9 +775,10 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       touchStartY = e.touches[0].clientY;
     };
     const handleTouchMove = (e: TouchEvent) => {
-      if (containerRef.current) {
+      const wrapper = lenisRef.current?.wrapper;
+      if (wrapper) {
         const touchEndY = e.touches[0].clientY;
-        if (containerRef.current.scrollTop <= 0 && touchEndY - touchStartY > 30) { 
+        if (wrapper.scrollTop <= 0 && touchEndY - touchStartY > 30) { 
           onBack();
         }
       }
@@ -795,13 +798,13 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
   return (
     <motion.div
       key="network-page"
-      ref={containerRef}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute inset-0 w-full h-full overflow-y-auto"
+      className="absolute inset-0 w-full h-full"
     >
+      <ReactLenis ref={lenisRef} className="absolute inset-0 w-full h-full overflow-y-auto" options={{ smoothTouch: true }}>
       <div className="fixed inset-0 z-0 opacity-40">
         <FloatingLines 
           enabledWaves={['top', 'middle', 'bottom']}
@@ -851,6 +854,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       </div>
       
       </div>
+      </ReactLenis>
     </motion.div>
   );
 }
