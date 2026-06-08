@@ -182,10 +182,12 @@ export default function App() {
             <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
                 <h1 
-                  className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto"
-                  title="Do you know the code?"
+                  className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >
                   Shantanu <span className="italic font-light">Joshi</span>
+                  <div className="absolute left-1/2 -top-16 -translate-x-1/2 px-4 py-2 bg-[#1a1a1a]/80 backdrop-blur-md border border-zinc-800 text-zinc-400 text-xs sm:text-sm font-mono tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-xl normal-case font-normal">
+                    Do you know the code?
+                  </div>
                 </h1>
                 <p className="font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-widest md:tracking-[0.25em] mt-6 md:mt-8 text-zinc-400 m-0 text-center px-4">
                   Frontend Architect / Technical Writer / Operations Manager
@@ -857,7 +859,12 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
         </h2>
         <div className="flex gap-4 md:gap-8 text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase items-center">
           <span>© 2026 ALL RIGHTS RESERVED</span>
-          <span className="opacity-0 hover:opacity-10 transition-opacity duration-500 cursor-default select-none" title="↑ ↑ ↓ ↓ ← → ← → B A">THE KONAMI CODE</span>
+          <div className="relative group flex items-center">
+            <span className="opacity-0 hover:opacity-20 transition-opacity duration-500 cursor-default select-none">THE KONAMI CODE</span>
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-[#1a1a1a]/80 backdrop-blur-md border border-zinc-800 text-zinc-400 text-xs font-mono tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-xl">
+              ↑ ↑ ↓ ↓ ← → ← → B A
+            </div>
+          </div>
         </div>
       </div>
       
