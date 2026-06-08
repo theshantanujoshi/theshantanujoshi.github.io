@@ -7,6 +7,7 @@ import { ProjectItem } from './types';
 import SignatureAnimation from './components/SignatureAnimation';
 import LineWaves from './LineWaves';
 import MagnetLines from './components/MagnetLines';
+import FloatingLines from './components/FloatingLines';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -772,22 +773,35 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute inset-0 w-full h-full overflow-y-auto bg-[#131313]"
+      className="absolute inset-0 w-full h-full overflow-y-auto"
     >
-      <div className="w-full flex flex-col relative z-20 min-h-screen">
+      <div className="fixed inset-0 z-0">
+        <FloatingLines 
+          enabledWaves={['top', 'middle', 'bottom']}
+          lineCount={[10, 15, 20]}
+          lineDistance={[8, 6, 4]}
+          bendRadius={5.0}
+          bendStrength={-0.5}
+          interactive={true}
+          parallax={true}
+          mixBlendMode="normal"
+        />
+      </div>
+
+      <div className="w-full flex flex-col relative z-20 min-h-screen pointer-events-none">
         
         {/* Links Section */}
         <div 
-          className="w-full flex-1 bg-[#131313] flex flex-col justify-center py-24 md:py-32"
+          className="w-full flex-1 flex flex-col justify-center py-24 md:py-32"
         >
         <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 flex flex-col gap-12 md:gap-16 justify-center h-full">
           <header className="flex flex-col">
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white pointer-events-auto w-fit">
               NETWORK
             </h2>
           </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full pointer-events-auto">
             {LINKS_DATA.map((link) => {
               const IconComponent = IconMap[link.icon as keyof typeof IconMap];
               return (
@@ -799,7 +813,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       </div>
 
       {/* The Footer Section */}
-      <div className="w-full min-h-[100px] bg-[#000000] border-t border-zinc-800 flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-12 py-6 md:py-0 gap-4 md:gap-0 z-10 relative">
+      <div className="w-full min-h-[100px] bg-[#000000] border-t border-zinc-800 flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-12 py-6 md:py-0 gap-4 md:gap-0 z-10 relative pointer-events-auto">
         <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center md:h-full md:pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
           <SignatureAnimation duration={1} delay={0.2}>Shantanu Joshi</SignatureAnimation>
         </h2>
@@ -841,7 +855,7 @@ function LinkItem({ link, IconComponent }: { link: any, IconComponent: any }) {
       onClick={handleClick}
       target={link.url.startsWith('http') ? '_blank' : undefined}
       rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
-      className="group relative w-full border border-zinc-900 bg-[#1a1a1a] hover:bg-zinc-900 transition-colors duration-300 rounded-xl overflow-hidden p-6 md:p-8 flex items-center justify-between"
+      className="group relative w-full border border-zinc-900/50 bg-[#1a1a1a]/40 backdrop-blur-md hover:bg-zinc-900/60 transition-colors duration-300 rounded-xl overflow-hidden p-6 md:p-8 flex items-center justify-between"
     >
       <div className="flex items-center gap-6">
         {IconComponent && (
