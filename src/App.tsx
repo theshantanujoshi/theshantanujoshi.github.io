@@ -603,18 +603,32 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
 
   const x = useTransform(logicalSegmentMV, (segment) => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-    const itemWidth = isMobile ? 80 : 45;
-    const gap = 4; // 4vw
     
-    // The carousel is in the Right Column.
-    const centerOffset = isMobile ? 0 : 8; 
-    
-    const prevIndex = Math.floor(segment);
-    const progress = segment - prevIndex;
-    const startX = centerOffset - prevIndex * (itemWidth + gap);
-    const targetX = centerOffset - (prevIndex + 1) * (itemWidth + gap);
-    
-    return `${startX + (targetX - startX) * progress}vw`;
+    if (isMobile) {
+      const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 375;
+      const paddingPixels = 48; // 3rem (px-6 on both sides)
+      const imageWidthPixels = screenWidth - paddingPixels;
+      const gapPixels = screenWidth * 0.04; // 4vw gap
+      const stepPixels = imageWidthPixels + gapPixels;
+      
+      const prevIndex = Math.floor(segment);
+      const progress = segment - prevIndex;
+      const startX = -prevIndex * stepPixels;
+      const targetX = -(prevIndex + 1) * stepPixels;
+      
+      return `${startX + (targetX - startX) * progress}px`;
+    } else {
+      const itemWidth = 45;
+      const gap = 4; // 4vw
+      const centerOffset = 8; 
+      
+      const prevIndex = Math.floor(segment);
+      const progress = segment - prevIndex;
+      const startX = centerOffset - prevIndex * (itemWidth + gap);
+      const targetX = centerOffset - (prevIndex + 1) * (itemWidth + gap);
+      
+      return `${startX + (targetX - startX) * progress}vw`;
+    }
   });
 
   const snapAnchors = Array.from({ length: effectiveSteps + 1 });
@@ -682,7 +696,7 @@ function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: s
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const range = [index - 1, index, index + 1];
   
-  const scale = useTransform(logicalSegmentMV, range, isMobile ? [0.95, 1.05, 0.95] : [0.85, 1.45, 0.85]);
+  const scale = useTransform(logicalSegmentMV, range, isMobile ? [0.95, 1.0, 0.95] : [0.85, 1.45, 0.85]);
   const opacity = useTransform(logicalSegmentMV, range, isMobile ? [0.5, 1, 0.5] : [0.2, 1, 0.2]);
   const filter = useTransform(logicalSegmentMV, range, isMobile ? ["none", "none", "none"] : ["blur(8px)", "blur(0px)", "blur(8px)"]);
   const zIndex = useTransform(logicalSegmentMV, range, [10, 100, 10]);
@@ -690,7 +704,7 @@ function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: s
   return (
     <motion.div 
       style={{ scale, opacity, filter, zIndex }}
-      className="w-[80vw] lg:w-[45vw] aspect-video shrink-0 rounded-xl overflow-hidden border border-zinc-800 shadow-xl md:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative origin-center"
+      className="w-[calc(100vw-3rem)] lg:w-[45vw] aspect-video shrink-0 rounded-xl overflow-hidden border border-zinc-800 shadow-xl md:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative origin-center"
     >
       <img 
         src={src} 
