@@ -468,7 +468,7 @@ function ProjectsPage({ onBack, onNext }: { onBack: () => void, onNext: () => vo
           colors={['#52525b', '#27272a']}
           speed1={0.03}
           speed2={0.03}
-          focalLength={0.8}
+          focalLength={2.5}
           bend1={1}
           bend2={0.5}
           dir2={1.0}
