@@ -619,7 +619,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
         </div>
 
         {/* Right Column: Scroll-Hijacked Horizontal Carousel */}
-        <div className="w-full lg:w-3/4 h-full flex items-center lg:items-start lg:pt-8">
+        <div className="w-full lg:w-3/4 h-full flex items-center lg:items-start pt-8 lg:pt-24">
           <motion.div 
             className="flex w-max items-center"
             style={{ x, gap: '4vw' }}
