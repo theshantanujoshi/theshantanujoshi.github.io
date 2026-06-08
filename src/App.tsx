@@ -9,6 +9,7 @@ import LineWaves from './LineWaves';
 import MagnetLines from './components/MagnetLines';
 import FloatingLines from './components/FloatingLines';
 import DarkVeil from './components/DarkVeil';
+import PlasmaWave from './components/PlasmaWave';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -462,7 +463,20 @@ function ProjectsPage({ onBack, onNext }: { onBack: () => void, onNext: () => vo
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-[#131313] scroll-smooth"
     >
-      <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col snap-start shrink-0">
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
+        <PlasmaWave
+          colors={['#52525b', '#27272a']}
+          speed1={0.03}
+          speed2={0.03}
+          focalLength={0.8}
+          bend1={1}
+          bend2={0.5}
+          dir2={1.0}
+          rotationDeg={0}
+        />
+      </div>
+
+      <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col snap-start shrink-0 relative z-10">
         <header className="mb-8 grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 md:col-span-8">
             <h2 className="text-[6vw] md:text-[5vw] font-extrabold uppercase tracking-tighter leading-none select-none text-white">
@@ -671,7 +685,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
       </div>
 
       {/* Sticky visual container in normal flow */}
-      <div className="sticky top-0 h-[100svh] w-full flex flex-col lg:flex-row gap-6 lg:gap-12 px-6 md:px-20 pt-20 lg:pt-32 pb-12 lg:pb-32 bg-[#131313] z-10 pointer-events-auto">
+      <div className="sticky top-0 h-[100svh] w-full flex flex-col lg:flex-row gap-6 lg:gap-12 px-6 md:px-20 pt-20 lg:pt-32 pb-12 lg:pb-32 bg-transparent z-10 pointer-events-auto">
         
         {/* Left Column: Info & Links (Static) */}
         <div className="w-full lg:w-1/4 flex flex-col shrink-0 relative z-20 lg:pr-4">
