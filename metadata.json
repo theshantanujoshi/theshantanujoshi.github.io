@@ -1,0 +1,6 @@
+{
+  "name": "Monolith Portfolio",
+  "description": "A stark, minimal, Refined Brutalism creative developer portfolio with a fully-integrated WebGL background, high-contrast chronology, bento-grid journal, and a server-side Gemini AI core assistant double.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
