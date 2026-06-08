@@ -181,7 +181,10 @@ export default function App() {
             </div>
             <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
-                <h1 className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0">
+                <h1 
+                  className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0"
+                  title="Do you know the code?"
+                >
                   Shantanu <span className="italic font-light">Joshi</span>
                 </h1>
                 <p className="font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-widest md:tracking-[0.25em] mt-6 md:mt-8 text-zinc-400 m-0 text-center px-4">
@@ -852,8 +855,9 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
         <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center md:h-full md:pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
           <SignatureAnimation duration={1} delay={0.2}>Shantanu Joshi</SignatureAnimation>
         </h2>
-        <div className="flex gap-4 md:gap-8 text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase">
+        <div className="flex gap-4 md:gap-8 text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase items-center">
           <span>© 2026 ALL RIGHTS RESERVED</span>
+          <span className="opacity-0 hover:opacity-10 transition-opacity duration-500 cursor-default select-none" title="↑ ↑ ↓ ↓ ← → ← → B A">THE KONAMI CODE</span>
         </div>
       </div>
       
