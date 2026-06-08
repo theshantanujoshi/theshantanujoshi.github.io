@@ -603,11 +603,11 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
 
   const x = useTransform(logicalSegmentMV, (segment) => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-    const itemWidth = isMobile ? 85 : 45;
+    const itemWidth = isMobile ? 80 : 45;
     const gap = 4; // 4vw
     
     // The carousel is in the Right Column.
-    const centerOffset = isMobile ? -5 : 8; 
+    const centerOffset = isMobile ? 0 : 8; 
     
     const prevIndex = Math.floor(segment);
     const progress = segment - prevIndex;
@@ -693,18 +693,18 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
 }
 
 function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: string, index: number, logicalSegmentMV: any, projectTitle: string }) {
-  
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const range = [index - 1, index, index + 1];
   
-  const scale = useTransform(logicalSegmentMV, range, [0.85, 1.45, 0.85]);
-  const opacity = useTransform(logicalSegmentMV, range, [0.2, 1, 0.2]);
-  const filter = useTransform(logicalSegmentMV, range, ["blur(8px)", "blur(0px)", "blur(8px)"]);
+  const scale = useTransform(logicalSegmentMV, range, isMobile ? [0.95, 1.05, 0.95] : [0.85, 1.45, 0.85]);
+  const opacity = useTransform(logicalSegmentMV, range, isMobile ? [0.5, 1, 0.5] : [0.2, 1, 0.2]);
+  const filter = useTransform(logicalSegmentMV, range, isMobile ? ["none", "none", "none"] : ["blur(8px)", "blur(0px)", "blur(8px)"]);
   const zIndex = useTransform(logicalSegmentMV, range, [10, 100, 10]);
 
   return (
     <motion.div 
       style={{ scale, opacity, filter, zIndex }}
-      className="w-[85vw] lg:w-[45vw] aspect-video shrink-0 rounded-xl overflow-hidden border border-zinc-800 shadow-[0_0_40px_rgba(0,0,0,0.5)] relative origin-center"
+      className="w-[80vw] lg:w-[45vw] aspect-video shrink-0 rounded-xl overflow-hidden border border-zinc-800 shadow-xl md:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative origin-center"
     >
       <img 
         src={src} 
