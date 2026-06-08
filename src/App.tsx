@@ -10,6 +10,7 @@ import MagnetLines from './components/MagnetLines';
 import FloatingLines from './components/FloatingLines';
 import DarkVeil from './components/DarkVeil';
 import PlasmaWave from './components/PlasmaWave';
+import EasterEgg from './components/EasterEgg';
 import { ReactLenis } from 'lenis/react';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -88,6 +89,7 @@ export default function App() {
 
   return (
     <div className="w-full bg-[#131313] text-[#FFFFFF] select-none antialiased relative h-screen overflow-hidden">
+      <EasterEgg />
       
       {/* Desktop Navigation */}
       <nav className="hidden md:flex absolute top-8 right-10 z-50 gap-6 text-xs font-mono tracking-widest uppercase mix-blend-difference">
