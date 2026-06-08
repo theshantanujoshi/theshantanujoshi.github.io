@@ -161,7 +161,7 @@ export default function App() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 w-full h-full flex flex-col justify-between items-center"
           >
-            <div className="absolute inset-0 w-full h-full z-0 opacity-20 pointer-events-none">
+            <div className="absolute inset-0 w-full h-full z-0 opacity-10 pointer-events-none">
               <LineWaves
                 speed={0.5}
                 innerLineCount={20}
