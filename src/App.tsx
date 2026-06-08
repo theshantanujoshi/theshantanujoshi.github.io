@@ -854,17 +854,23 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
 
       {/* The Footer Section */}
       <div className="w-full min-h-[100px] bg-[#000000] border-t border-zinc-800 flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-12 py-6 md:py-0 gap-4 md:gap-0 z-10 relative pointer-events-auto">
-        <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center md:h-full md:pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
-          <SignatureAnimation duration={1} delay={0.2}>Shantanu Joshi</SignatureAnimation>
-        </h2>
-        <div className="flex gap-4 md:gap-8 text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase items-center">
-          <span>© 2026 ALL RIGHTS RESERVED</span>
+        <div className="w-full md:flex-1 flex justify-center md:justify-start">
+          <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center md:h-full md:pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
+            <SignatureAnimation duration={1} delay={0.2}>Shantanu Joshi</SignatureAnimation>
+          </h2>
+        </div>
+        
+        <div className="w-full md:flex-1 flex justify-center text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase items-center">
           <div className="relative group flex items-center">
             <span className="opacity-0 hover:opacity-20 transition-opacity duration-500 cursor-default select-none">THE KONAMI CODE</span>
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2.5 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 text-zinc-300 text-xs font-sans font-semibold tracking-widest rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-2xl">
               ↑ ↑ ↓ ↓ ← → ← → B A
             </div>
           </div>
+        </div>
+
+        <div className="w-full md:flex-1 flex justify-center md:justify-end text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase items-center">
+          <span>© 2026 ALL RIGHTS RESERVED</span>
         </div>
       </div>
       
