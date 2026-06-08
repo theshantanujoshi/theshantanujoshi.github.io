@@ -620,24 +620,17 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
   const snapAnchors = Array.from({ length: effectiveSteps + 1 });
 
   return (
-    <div ref={containerRef} className="w-full relative border-b border-zinc-900" style={{ height: `${containerHeightSvh}vh` }}>
+    <div ref={containerRef} className="w-full relative border-b border-zinc-900" style={{ height: `${containerHeightSvh}svh` }}>
       
-      {/* Snap anchors to guide the scroll physics without mandatory locking */}
-      {snapAnchors.map((_, i) => (
-        <div 
-          key={i} 
-          className="w-full snap-start" 
-          style={{ 
-            height: `${stepHeight}vh`,
-            position: 'absolute',
-            top: `${i * stepHeight}vh`,
-            pointerEvents: 'none'
-          }} 
-        />
-      ))}
+      {/* Snap anchors to guide the scroll physics overlaying the sticky space */}
+      <div className="absolute inset-0 w-full flex flex-col pointer-events-none z-0">
+        {snapAnchors.map((_, i) => (
+          <div key={i} className="w-full snap-start" style={{ height: `${stepHeight}svh` }} />
+        ))}
+      </div>
 
       {/* Sticky visual container in normal flow */}
-      <div className="sticky top-0 h-[100svh] w-full flex flex-col lg:flex-row gap-6 lg:gap-12 px-6 md:px-20 pt-20 lg:pt-32 pb-12 lg:pb-32 bg-[#131313] z-10">
+      <div className="sticky top-0 h-[100svh] w-full flex flex-col lg:flex-row gap-6 lg:gap-12 px-6 md:px-20 pt-20 lg:pt-32 pb-12 lg:pb-32 bg-[#131313] z-10 pointer-events-auto">
         
         {/* Left Column: Info & Links (Static) */}
         <div className="w-full lg:w-1/4 flex flex-col shrink-0 relative z-20 lg:pr-4">
@@ -680,13 +673,6 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
           </div>
           
         </div>
-
-      {/* Scroll Snapping Anchors pulled up to overlap the sticky space */}
-      <div className="w-full flex flex-col pointer-events-none opacity-0 z-0" style={{ marginTop: '-100vh' }}>
-        {snapAnchors.map((_, i) => (
-          <div key={i} className="w-full h-[100vh] snap-start" />
-        ))}
-      </div>
 
     </div>
   );
