@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'motion/react';
 import { ScrollVelocity } from './components/ScrollVelocity';
 import { TIMELINE_DATA, PROJECTS_DATA, JOURNAL_DATA, LINKS_DATA } from './data';
-import { FileText, Calendar, Linkedin, Github, Mail, Phone, Twitter, BookOpen, Instagram } from 'lucide-react';
+import { FileText, Calendar, Linkedin, Github, Mail, Phone, Twitter, BookOpen, Instagram, Menu, X } from 'lucide-react';
 import { ProjectItem } from './types';
 import SignatureAnimation from './components/SignatureAnimation';
 import LineWaves from './LineWaves';
@@ -33,6 +33,7 @@ type PageType = 'INDEX' | 'EXPERIENCE' | 'PROJECTS' | 'GALLERY' | 'NETWORK';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageType>('INDEX');
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -77,13 +78,14 @@ export default function App() {
     else if (navItem === 'PROJECTS') navigateTo('PROJECTS');
     else if (navItem === 'CONTACT') navigateTo('NETWORK');
     else if (navItem === 'GALLERY') navigateTo('GALLERY');
+    setIsNavOpen(false);
   };
 
   return (
     <div className="w-full bg-[#131313] text-[#FFFFFF] select-none antialiased relative h-screen overflow-hidden">
       
-      {/* Fixed Navigation */}
-      <nav className="absolute top-6 right-6 md:top-8 md:right-10 z-50 flex gap-4 md:gap-6 text-[10px] md:text-xs font-mono tracking-widest uppercase mix-blend-difference">
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex absolute top-8 right-10 z-50 gap-6 text-xs font-mono tracking-widest uppercase mix-blend-difference">
          {['HOME', 'EXPERIENCE', 'PROJECTS', 'GALLERY', 'CONTACT'].map((item) => {
            let isActive = false;
            if (item === 'HOME' && activePage === 'INDEX') isActive = true;
@@ -103,6 +105,47 @@ export default function App() {
            );
          })}
       </nav>
+
+      {/* Mobile Navigation Toggle */}
+      <button 
+        className="md:hidden absolute top-6 right-6 z-[60] mix-blend-difference text-white"
+        onClick={() => setIsNavOpen(!isNavOpen)}
+      >
+        {isNavOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Mobile Navigation Overlay */}
+      <AnimatePresence>
+        {isNavOpen && (
+          <motion.div 
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-50 bg-black/80 flex flex-col items-center justify-center"
+          >
+            <nav className="flex flex-col gap-8 text-lg font-mono tracking-widest uppercase items-center">
+              {['HOME', 'EXPERIENCE', 'PROJECTS', 'GALLERY', 'CONTACT'].map((item) => {
+                let isActive = false;
+                if (item === 'HOME' && activePage === 'INDEX') isActive = true;
+                if (item === 'EXPERIENCE' && activePage === 'EXPERIENCE') isActive = true;
+                if (item === 'PROJECTS' && activePage === 'PROJECTS') isActive = true;
+                if (item === 'GALLERY' && activePage === 'GALLERY') isActive = true;
+                if (item === 'CONTACT' && activePage === 'NETWORK') isActive = true;
+
+                return (
+                  <button 
+                    key={item} 
+                    onClick={() => handleNavClick(item)}
+                    className={`transition-colors hover:text-white ${isActive ? 'text-white font-bold' : 'text-zinc-400'}`}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         
@@ -129,12 +172,12 @@ export default function App() {
                 mouseInfluence={0.0}
               />
             </div>
-            <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10">
+            <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
-                <h1 className="font-sans text-[7vw] md:text-[6.5vw] font-extrabold tracking-[-0.04em] uppercase leading-none select-none text-center m-0">
+                <h1 className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0">
                   Shantanu <span className="italic font-light">Joshi</span>
                 </h1>
-                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.25em] mt-8 text-zinc-400 m-0">
+                <p className="font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-widest md:tracking-[0.25em] mt-6 md:mt-8 text-zinc-400 m-0 text-center px-4">
                   Frontend Architect / Technical Writer / Operations Manager
                 </p>
               </div>
@@ -499,7 +542,7 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
             </h2>
           </header>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-6 w-full">
             {JOURNAL_DATA.map((post, idx) => (
               <motion.div 
                 key={idx}
@@ -594,7 +637,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
       ))}
 
       {/* Sticky visual container in normal flow */}
-      <div className="sticky top-0 h-[100vh] w-full flex flex-col lg:flex-row gap-8 lg:gap-12 px-6 md:px-20 pt-24 lg:pt-32 pb-24 lg:pb-32 bg-[#131313] z-10">
+      <div className="sticky top-0 h-[100svh] w-full flex flex-col lg:flex-row gap-6 lg:gap-12 px-6 md:px-20 pt-20 lg:pt-32 pb-12 lg:pb-32 bg-[#131313] z-10">
         
         {/* Left Column: Info & Links (Static) */}
         <div className="w-full lg:w-1/4 flex flex-col shrink-0 relative z-20 lg:pr-4">
@@ -743,8 +786,8 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       </div>
 
       {/* The Footer Section */}
-      <div className="w-full h-[100px] bg-[#000000] border-t border-zinc-800 flex items-center justify-between px-6 md:px-12 z-10 relative">
-        <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center h-full pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
+      <div className="w-full min-h-[100px] bg-[#000000] border-t border-zinc-800 flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-12 py-6 md:py-0 gap-4 md:gap-0 z-10 relative">
+        <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none flex items-center md:h-full md:pt-4" style={{ fontFamily: '"Marck Script", cursive' }}>
           <SignatureAnimation duration={1} delay={0.2}>Shantanu Joshi</SignatureAnimation>
         </h2>
         <div className="flex gap-4 md:gap-8 text-zinc-500 font-mono text-[10px] md:text-xs tracking-widest uppercase">
