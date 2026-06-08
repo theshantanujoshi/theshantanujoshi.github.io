@@ -49,25 +49,6 @@ export default function MagnetLines({
     let animationFrameId: number;
     let time = 0;
     
-    let pointerPos = { x: 0, y: 0 };
-    let isPointerActive = false;
-    let pointerTimeout: NodeJS.Timeout;
-
-    const onPointerMove = (e: PointerEvent) => {
-      const containerRect = container.getBoundingClientRect();
-      pointerPos = {
-        x: e.clientX - containerRect.left,
-        y: e.clientY - containerRect.top
-      };
-      isPointerActive = true;
-      clearTimeout(pointerTimeout);
-      pointerTimeout = setTimeout(() => {
-        isPointerActive = false;
-      }, 2000); // revert to automated motion after 2 seconds of inactivity
-    };
-
-    window.addEventListener('pointermove', onPointerMove);
-
     let currentX = 0;
     let currentY = 0;
     let isInitialized = false;
@@ -82,18 +63,14 @@ export default function MagnetLines({
       const autoX = width / 2 + Math.sin(time) * width * 0.4;
       const autoY = height / 2 + Math.cos(time * 0.7) * height * 0.4;
 
-      // Smoothly interpolate between automated and manual pointer position
-      const targetX = isPointerActive ? pointerPos.x : autoX;
-      const targetY = isPointerActive ? pointerPos.y : autoY;
-
       if (!isInitialized) {
         currentX = autoX;
         currentY = autoY;
         isInitialized = true;
       }
 
-      currentX += (targetX - currentX) * 0.05;
-      currentY += (targetY - currentY) * 0.05;
+      currentX += (autoX - currentX) * 0.05;
+      currentY += (autoY - currentY) * 0.05;
 
       items.forEach((item, i) => {
         const center = centers[i];
@@ -114,9 +91,7 @@ export default function MagnetLines({
 
     return () => {
       window.removeEventListener('resize', updateCenters);
-      window.removeEventListener('pointermove', onPointerMove);
       cancelAnimationFrame(animationFrameId);
-      clearTimeout(pointerTimeout);
     };
   }, [rows, columns]);
 
