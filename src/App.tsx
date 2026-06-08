@@ -775,7 +775,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 w-full h-full overflow-y-auto"
     >
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0 opacity-40">
         <FloatingLines 
           enabledWaves={['top', 'middle', 'bottom']}
           lineCount={[10, 15, 20]}
