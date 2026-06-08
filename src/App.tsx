@@ -288,7 +288,7 @@ function ExperiencePage({ onBack, onNext }: { onBack: () => void, onNext: () => 
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 w-full h-full overflow-y-auto"
     >
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-80">
         <DarkVeil 
           hueShift={0}
           noiseIntensity={0.08}

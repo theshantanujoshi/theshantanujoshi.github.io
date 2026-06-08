@@ -74,7 +74,7 @@ void main(){
     
     // Sync to monochrome zinc theme (#131313 bg)
     float luminance = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-    col.rgb = mix(vec3(0.07, 0.07, 0.07), vec3(0.25, 0.25, 0.25), luminance);
+    col.rgb = mix(vec3(0.12, 0.12, 0.12), vec3(0.40, 0.40, 0.40), luminance);
     
     gl_FragColor=vec4(clamp(col.rgb,0.0,1.0),1.0);
 }
