@@ -6,6 +6,7 @@ import { FileText, Calendar, Linkedin, Github, Mail, Phone, Twitter, BookOpen, I
 import { ProjectItem } from './types';
 import SignatureAnimation from './components/SignatureAnimation';
 import LineWaves from './LineWaves';
+import MagnetLines from './components/MagnetLines';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -534,7 +535,19 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
     >
       <div className="w-full bg-[#131313] min-h-[100vh] snap-start flex flex-col relative z-20 overflow-hidden">
         
-        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col gap-12 md:gap-16">
+        <div className="fixed inset-0 z-0 flex items-center justify-center opacity-20 pointer-events-none overflow-hidden">
+          <MagnetLines 
+            rows={15} 
+            columns={typeof window !== 'undefined' && window.innerWidth > 768 ? 25 : 10} 
+            containerSize="120%" 
+            lineColor="rgba(255,255,255,0.4)" 
+            lineWidth="2px"
+            lineHeight="4vh"
+            baseAngle={-20}
+          />
+        </div>
+
+        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col gap-12 md:gap-16 relative z-10">
           
           <header className="flex flex-col">
             <h2 className="text-[6vw] md:text-[5vw] font-extrabold uppercase tracking-tighter leading-none select-none text-white">
