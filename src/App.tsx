@@ -887,7 +887,7 @@ function LinkItem({ link, IconComponent }: { link: any, IconComponent: any }) {
       onClick={handleClick}
       target={link.url.startsWith('http') ? '_blank' : undefined}
       rel={link.url.startsWith('http') ? 'noreferrer' : undefined}
-      className="group relative w-full border border-zinc-900/50 bg-[#1a1a1a]/40 backdrop-blur-md hover:bg-zinc-900/60 transition-colors duration-300 rounded-xl overflow-hidden p-6 md:p-8 flex items-center justify-between"
+      className="group relative w-full border border-zinc-900/50 bg-[#1a1a1a]/80 hover:bg-zinc-900/90 transition-colors duration-300 rounded-xl overflow-hidden p-6 md:p-8 flex items-center justify-between"
     >
       <div className="flex items-center gap-6">
         {IconComponent && (
