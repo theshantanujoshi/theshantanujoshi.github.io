@@ -185,7 +185,7 @@ export default function App() {
                   className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >
                   Shantanu <span className="italic font-light">Joshi</span>
-                  <div className="absolute left-1/2 -top-16 -translate-x-1/2 px-4 py-2 bg-[#1a1a1a]/80 backdrop-blur-md border border-zinc-800 text-zinc-400 text-xs sm:text-sm font-mono tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-xl normal-case font-normal">
+                  <div className="absolute left-1/2 -top-16 -translate-x-1/2 px-4 py-2.5 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 text-zinc-300 text-xs sm:text-sm font-sans font-semibold tracking-wide rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-2xl normal-case">
                     Do you know the code?
                   </div>
                 </h1>
@@ -861,7 +861,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
           <span>© 2026 ALL RIGHTS RESERVED</span>
           <div className="relative group flex items-center">
             <span className="opacity-0 hover:opacity-20 transition-opacity duration-500 cursor-default select-none">THE KONAMI CODE</span>
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-[#1a1a1a]/80 backdrop-blur-md border border-zinc-800 text-zinc-400 text-xs font-mono tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-xl">
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2.5 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 text-zinc-300 text-xs font-sans font-semibold tracking-widest rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-2xl">
               ↑ ↑ ↓ ↓ ← → ← → B A
             </div>
           </div>
