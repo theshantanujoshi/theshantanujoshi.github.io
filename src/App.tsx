@@ -594,7 +594,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
       ))}
 
       {/* Sticky visual container in normal flow */}
-      <div className="sticky top-0 h-[100vh] w-full flex flex-col lg:flex-row gap-8 lg:gap-12 px-6 md:px-20 pt-24 lg:pt-32 pb-12 bg-[#131313] z-10">
+      <div className="sticky top-0 h-[100vh] w-full flex flex-col lg:flex-row gap-8 lg:gap-12 px-6 md:px-20 pt-24 lg:pt-32 pb-24 lg:pb-32 bg-[#131313] z-10">
         
         {/* Left Column: Info & Links (Static) */}
         <div className="w-full lg:w-1/4 flex flex-col shrink-0 relative z-20 lg:pr-4">
@@ -619,7 +619,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
         </div>
 
         {/* Right Column: Scroll-Hijacked Horizontal Carousel */}
-        <div className="w-full lg:w-3/4 h-full flex items-center lg:items-start pt-8 lg:pt-24">
+        <div className="w-full lg:w-3/4 h-full flex items-center lg:items-end pt-8 lg:pt-0">
           <motion.div 
             className="flex w-max items-center"
             style={{ x, gap: '4vw' }}
