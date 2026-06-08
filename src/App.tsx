@@ -808,7 +808,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
       <div className="fixed inset-0 z-0 opacity-40">
         <FloatingLines 
           enabledWaves={['top', 'middle', 'bottom']}
-          lineCount={[10, 15, 20]}
+          lineCount={[5, 8, 10]}
           lineDistance={[8, 6, 4]}
           linesGradient={['#a1a1aa', '#52525b', '#27272a']}
           bendRadius={5.0}
