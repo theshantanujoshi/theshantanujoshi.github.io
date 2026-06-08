@@ -8,6 +8,7 @@ import SignatureAnimation from './components/SignatureAnimation';
 import LineWaves from './LineWaves';
 import MagnetLines from './components/MagnetLines';
 import FloatingLines from './components/FloatingLines';
+import DarkVeil from './components/DarkVeil';
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -287,7 +288,19 @@ function ExperiencePage({ onBack, onNext }: { onBack: () => void, onNext: () => 
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 w-full h-full overflow-y-auto"
     >
-      <div className="w-full max-w-6xl mx-auto px-6 md:px-20 py-32 flex flex-col justify-start min-h-[101vh]">
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
+        <DarkVeil 
+          hueShift={0}
+          noiseIntensity={0.08}
+          scanlineIntensity={0.3}
+          speed={0.3}
+          scanlineFrequency={800}
+          warpAmount={1.2}
+          resolutionScale={1}
+        />
+      </div>
+
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-20 py-32 flex flex-col justify-start min-h-[101vh] relative z-20">
 
         <header className="mb-24 grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 md:col-span-8">
