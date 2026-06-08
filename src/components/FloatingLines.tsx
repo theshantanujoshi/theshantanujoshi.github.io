@@ -67,14 +67,8 @@ mat2 rotate(float r) {
 }
 
 vec3 background_color(vec2 uv) {
-  vec3 col = vec3(0.0);
-
-  float y = sin(uv.x - 0.2) * 0.3 - 0.1;
-  float m = uv.y - y;
-
-  col += mix(BLUE, BLACK, smoothstep(0.0, 1.0, abs(m)));
-  col += mix(PINK, BLACK, smoothstep(0.0, 1.0, abs(m - 0.8)));
-  return col * 0.5;
+  // Solid #131313 to match the app theme
+  return vec3(19.0, 19.0, 19.0) / 255.0;
 }
 
 vec3 getLineColor(float t, vec3 baseColor) {

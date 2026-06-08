@@ -780,10 +780,11 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
           enabledWaves={['top', 'middle', 'bottom']}
           lineCount={[10, 15, 20]}
           lineDistance={[8, 6, 4]}
+          linesGradient={['#a1a1aa', '#52525b', '#27272a']}
           bendRadius={5.0}
           bendStrength={-0.5}
-          interactive={true}
-          parallax={true}
+          interactive={false}
+          parallax={false}
           mixBlendMode="normal"
         />
       </div>
