@@ -1,6 +1,6 @@
 # Popolio
 
-> *"The last one was a disaster, so here we are."*
+> *The last one was a disaster, so here we are.*
 
 A brutalist, high-performance, kinematics-driven personal portfolio built to showcase a career spanning Generative AI, Quantitative Research, and Frontend Architecture. Designed with extreme attention to scroll physics, layout typography, and interactive aesthetic depth.
 
