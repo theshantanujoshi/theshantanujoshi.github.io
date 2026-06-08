@@ -31,32 +31,92 @@ export default function MagnetLines({
     if (!container) return;
 
     const items = container.querySelectorAll('span');
+    const centers: { x: number; y: number }[] = [];
 
-    const onPointerMove = (pointer: { x: number; y: number }) => {
-      items.forEach(item => {
-        const rect = item.getBoundingClientRect();
-        const centerX = rect.x + rect.width / 2;
-        const centerY = rect.y + rect.height / 2;
-
-        const b = pointer.x - centerX;
-        const a = pointer.y - centerY;
-        const c = Math.sqrt(a * a + b * b) || 1;
-        const r = ((Math.acos(b / c) * 180) / Math.PI) * (pointer.y > centerY ? 1 : -1);
-
-        item.style.setProperty('--rotate', `${r}deg`);
+    const updateCenters = () => {
+      items.forEach((item, i) => {
+        centers[i] = {
+          x: item.offsetLeft + item.offsetWidth / 2,
+          y: item.offsetTop + item.offsetHeight / 2
+        };
       });
+    };
+
+    // Delay initial caching slightly to ensure layouts/animations have settled
+    setTimeout(updateCenters, 100);
+    window.addEventListener('resize', updateCenters);
+
+    let animationFrameId: number;
+    let time = 0;
+    
+    let pointerPos = { x: 0, y: 0 };
+    let isPointerActive = false;
+    let pointerTimeout: NodeJS.Timeout;
+
+    const onPointerMove = (e: PointerEvent) => {
+      const containerRect = container.getBoundingClientRect();
+      pointerPos = {
+        x: e.clientX - containerRect.left,
+        y: e.clientY - containerRect.top
+      };
+      isPointerActive = true;
+      clearTimeout(pointerTimeout);
+      pointerTimeout = setTimeout(() => {
+        isPointerActive = false;
+      }, 2000); // revert to automated motion after 2 seconds of inactivity
     };
 
     window.addEventListener('pointermove', onPointerMove);
 
-    if (items.length) {
-      const middleIndex = Math.floor(items.length / 2);
-      const rect = items[middleIndex].getBoundingClientRect();
-      onPointerMove({ x: rect.x, y: rect.y });
-    }
+    let currentX = 0;
+    let currentY = 0;
+    let isInitialized = false;
+
+    const animate = () => {
+      time += 0.015;
+      
+      const width = container.offsetWidth;
+      const height = container.offsetHeight;
+      
+      // Automated Lissajous motion
+      const autoX = width / 2 + Math.sin(time) * width * 0.4;
+      const autoY = height / 2 + Math.cos(time * 0.7) * height * 0.4;
+
+      // Smoothly interpolate between automated and manual pointer position
+      const targetX = isPointerActive ? pointerPos.x : autoX;
+      const targetY = isPointerActive ? pointerPos.y : autoY;
+
+      if (!isInitialized) {
+        currentX = autoX;
+        currentY = autoY;
+        isInitialized = true;
+      }
+
+      currentX += (targetX - currentX) * 0.05;
+      currentY += (targetY - currentY) * 0.05;
+
+      items.forEach((item, i) => {
+        const center = centers[i];
+        if (!center) return;
+
+        const b = currentX - center.x;
+        const a = currentY - center.y;
+        const c = Math.sqrt(a * a + b * b) || 1;
+        const r = ((Math.acos(b / c) * 180) / Math.PI) * (currentY > center.y ? 1 : -1);
+
+        item.style.setProperty('--rotate', `${r}deg`);
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
 
     return () => {
+      window.removeEventListener('resize', updateCenters);
       window.removeEventListener('pointermove', onPointerMove);
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(pointerTimeout);
     };
   }, [rows, columns]);
 
