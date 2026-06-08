@@ -182,7 +182,7 @@ export default function App() {
             <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
                 <h1 
-                  className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0"
+                  className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto"
                   title="Do you know the code?"
                 >
                   Shantanu <span className="italic font-light">Joshi</span>
