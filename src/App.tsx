@@ -464,9 +464,9 @@ function ProjectsPage({ onBack, onNext }: { onBack: () => void, onNext: () => vo
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-[#131313] scroll-smooth"
     >
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-20">
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-15">
         <PlasmaWave
-          colors={['#52525b', '#27272a']}
+          colors={['#27272a', '#18181b']}
           speed1={0.03}
           speed2={0.03}
           focalLength={2.5}
