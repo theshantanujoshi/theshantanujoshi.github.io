@@ -509,15 +509,16 @@ function ProjectsPage({ onBack, onNext }: { onBack: () => void, onNext: () => vo
 }
 
 function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => void }) {
-  const pageRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<any>(null);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (pageRef.current) {
-        if (pageRef.current.scrollTop <= 0 && e.deltaY < -30) {
+      const wrapper = pageRef.current?.wrapper;
+      if (wrapper) {
+        if (wrapper.scrollTop <= 0 && e.deltaY < -30) {
           onBack();
         }
-        const { scrollTop, scrollHeight, clientHeight } = pageRef.current;
+        const { scrollTop, scrollHeight, clientHeight } = wrapper;
         if (scrollTop + clientHeight >= scrollHeight - 5 && e.deltaY > 30) {
           onNext();
         }
@@ -529,12 +530,13 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
       touchStartY = e.touches[0].clientY;
     };
     const handleTouchMove = (e: TouchEvent) => {
-      if (pageRef.current) {
+      const wrapper = pageRef.current?.wrapper;
+      if (wrapper) {
         const touchEndY = e.touches[0].clientY;
-        if (pageRef.current.scrollTop <= 0 && touchEndY - touchStartY > 30) { 
+        if (wrapper.scrollTop <= 0 && touchEndY - touchStartY > 30) { 
           onBack();
         }
-        const { scrollTop, scrollHeight, clientHeight } = pageRef.current;
+        const { scrollTop, scrollHeight, clientHeight } = wrapper;
         if (scrollTop + clientHeight >= scrollHeight - 5 && touchStartY - touchEndY > 30) {
           onNext();
         }
@@ -555,13 +557,13 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
   return (
     <motion.div
       key="gallery-page"
-      ref={pageRef}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-[#131313] scroll-smooth"
+      className="absolute inset-0 w-full h-full"
     >
+      <ReactLenis ref={pageRef} className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-[#131313]" options={{ smoothTouch: true }}>
       <div className="w-full bg-[#131313] min-h-[100vh] snap-start flex flex-col relative z-20 overflow-hidden">
         
         <div className="fixed inset-0 z-0 flex items-center justify-center opacity-20 pointer-events-none overflow-hidden">
@@ -609,8 +611,8 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
           </div>
 
         </div>
-
       </div>
+      </ReactLenis>
     </motion.div>
   );
 }
