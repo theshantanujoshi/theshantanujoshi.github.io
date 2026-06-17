@@ -26,8 +26,8 @@ This isn't a standard top-to-bottom website. It's a structured sequence of inter
 
 1. **Clone the repo**
 ```bash
-git clone https://github.com/theshantanujoshi/portfolio-v2.git
-cd portfolio-v2
+git clone https://github.com/theshantanujoshi/theshantanujoshi.github.io.git
+cd theshantanujoshi.github.io
 ```
 
 2. **Install dependencies**
