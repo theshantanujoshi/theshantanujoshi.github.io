@@ -184,24 +184,6 @@ export default function App() {
                 <h1 
                   className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.8 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="absolute left-1/2 top-[100%] -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[80vh] md:w-[60vw] md:h-[80vh] -z-10 pointer-events-none flex justify-center items-center"
-                    style={{
-                      maskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)",
-                      WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)"
-                    }}
-                  >
-                    <img 
-                      src="/profilepicture.png" 
-                      alt="" 
-                      className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-105" 
-                    />
-                    <div className="absolute inset-0 bg-black/20 mix-blend-multiply"></div>
-                  </motion.div>
-
                   Shantanu <span className="italic font-light">Joshi</span>
                   <div className="absolute left-1/2 -top-16 -translate-x-1/2 px-4 py-2.5 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 text-zinc-300 text-xs sm:text-sm font-sans font-semibold tracking-wide rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-2xl normal-case">
                     Do you know the code?
