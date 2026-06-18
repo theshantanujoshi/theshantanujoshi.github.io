@@ -181,21 +181,24 @@ export default function App() {
             </div>
             <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="mb-8 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-20 relative group md:-ml-32 -ml-20"
-                >
-                  <img 
-                    src="/profilepicture.png" 
-                    alt="Shantanu Joshi" 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                  />
-                </motion.div>
                 <h1 
                   className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[320px] md:h-[320px] -z-10 rounded-full overflow-hidden border border-zinc-800/30 opacity-40 pointer-events-none shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+                  >
+                    <img 
+                      src="/profilepicture.png" 
+                      alt="" 
+                      className="w-full h-full object-cover grayscale object-top group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#131313]/90"></div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#131313_100%)]"></div>
+                  </motion.div>
+
                   Shantanu <span className="italic font-light">Joshi</span>
                   <div className="absolute left-1/2 -top-16 -translate-x-1/2 px-4 py-2.5 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 text-zinc-300 text-xs sm:text-sm font-sans font-semibold tracking-wide rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none whitespace-nowrap z-50 shadow-2xl normal-case">
                     Do you know the code?
