@@ -1,11 +1,11 @@
 export interface TimelineItem {
   id: string;
-  num: string;
   period: string;
   company: string;
   role: string;
   details: string;
   stack: string[];
+  category: 'work' | 'education' | 'certification' | 'volunteering';
 }
 
 export interface JournalItem {
