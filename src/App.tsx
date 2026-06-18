@@ -234,6 +234,11 @@ function ExperiencePage({ onBack, onNext }: { onBack: () => void, onNext: () => 
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
+  const workItems = TIMELINE_DATA.filter(item => item.category === 'work');
+  const educationItems = TIMELINE_DATA.filter(item => item.category === 'education');
+  const certificationItems = TIMELINE_DATA.filter(item => item.category === 'certification');
+  const volunteeringItems = TIMELINE_DATA.filter(item => item.category === 'volunteering');
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (containerRef.current) {
@@ -275,17 +280,36 @@ function ExperiencePage({ onBack, onNext }: { onBack: () => void, onNext: () => 
     };
   }, [onBack, onNext]);
 
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
+  const workRef = useRef<HTMLDivElement>(null);
+  const eduRef = useRef<HTMLDivElement>(null);
+  const certRef = useRef<HTMLDivElement>(null);
+  const volRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress: workScroll } = useScroll({
+    target: workRef,
+    container: containerRef,
+    offset: ["start center", "end end"]
+  });
+  const { scrollYProgress: eduScroll } = useScroll({
+    target: eduRef,
+    container: containerRef,
+    offset: ["start center", "end end"]
+  });
+  const { scrollYProgress: certScroll } = useScroll({
+    target: certRef,
+    container: containerRef,
+    offset: ["start center", "end end"]
+  });
+  const { scrollYProgress: volScroll } = useScroll({
+    target: volRef,
     container: containerRef,
     offset: ["start center", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const smoothWork = useSpring(workScroll, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothEdu = useSpring(eduScroll, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothCert = useSpring(certScroll, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothVol = useSpring(volScroll, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
     <motion.div
@@ -319,33 +343,147 @@ function ExperiencePage({ onBack, onNext }: { onBack: () => void, onNext: () => 
           </div>
           <div className="col-span-12 md:col-span-4 pb-1 md:pb-3">
             <p className="text-sm md:text-base leading-relaxed text-zinc-400">
-              A chronological record of my journey through AI research, frontend architecture, and operational leadership.
+              A timeline of my work in frontend engineering, event operations, and community building.
             </p>
           </div>
         </header>
 
-        <div className="relative mt-8" ref={timelineRef}>
-          <div className="absolute top-0 bottom-0 left-[22.5px] md:left-[38.5px] w-[2px] bg-zinc-800 rounded-full" />
-          
-          <motion.div 
-            className="absolute top-0 bottom-0 left-[22px] md:left-[38px] w-[3px] bg-white rounded-full origin-top z-10"
-            style={{ 
-              scaleY: smoothProgress,
-              boxShadow: "0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255, 255, 255, 0.5)"
-            }}
-          />
+        <div className="flex flex-col gap-24">
+          {/* WORK EXPERIENCE */}
+          {workItems.length > 0 && (
+            <div>
+              <div className="pl-16 md:pl-28 pb-6">
+                <h3 className="text-lg md:text-xl font-bold uppercase tracking-widest text-zinc-100 border-b border-zinc-800/80 pb-3 mb-6">
+                  Work Experience
+                </h3>
+              </div>
+              
+              <div className="relative" ref={workRef}>
+                <div className="absolute top-[54px] bottom-[150px] left-[22.5px] md:left-[38.5px] w-[2px] bg-zinc-800 rounded-full" />
+                <motion.div 
+                  className="absolute top-[54px] bottom-[150px] left-[22px] md:left-[38px] w-[3px] bg-white rounded-full origin-top z-10"
+                  style={{ 
+                    scaleY: smoothWork,
+                    boxShadow: "0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255, 255, 255, 0.5)"
+                  }}
+                />
 
-          <div className="flex flex-col">
-            {TIMELINE_DATA.map((item, index) => (
-              <TimelineItemNode 
-                key={item.id} 
-                item={item} 
-                progress={smoothProgress} 
-                index={index} 
-                total={TIMELINE_DATA.length} 
-              />
-            ))}
-          </div>
+                <div className="flex flex-col">
+                  {workItems.map((item, index) => (
+                    <TimelineItemNode 
+                      key={item.id} 
+                      item={item} 
+                      progress={smoothWork} 
+                      index={index} 
+                      total={workItems.length} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* EDUCATION */}
+          {educationItems.length > 0 && (
+            <div>
+              <div className="pl-16 md:pl-28 pb-6">
+                <h3 className="text-lg md:text-xl font-bold uppercase tracking-widest text-zinc-100 border-b border-zinc-800/80 pb-3 mb-6">
+                  Education
+                </h3>
+              </div>
+              
+              <div className="relative" ref={eduRef}>
+                <div className="absolute top-[54px] bottom-[150px] left-[22.5px] md:left-[38.5px] w-[2px] bg-zinc-800 rounded-full" />
+                <motion.div 
+                  className="absolute top-[54px] bottom-[150px] left-[22px] md:left-[38px] w-[3px] bg-white rounded-full origin-top z-10"
+                  style={{ 
+                    scaleY: smoothEdu,
+                    boxShadow: "0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255, 255, 255, 0.5)"
+                  }}
+                />
+
+                <div className="flex flex-col">
+                  {educationItems.map((item, index) => (
+                    <TimelineItemNode 
+                      key={item.id} 
+                      item={item} 
+                      progress={smoothEdu} 
+                      index={index} 
+                      total={educationItems.length} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* LICENSES & CERTIFICATIONS */}
+          {certificationItems.length > 0 && (
+            <div>
+              <div className="pl-16 md:pl-28 pb-6">
+                <h3 className="text-lg md:text-xl font-bold uppercase tracking-widest text-zinc-100 border-b border-zinc-800/80 pb-3 mb-6">
+                  Licenses & Certifications
+                </h3>
+              </div>
+              
+              <div className="relative" ref={certRef}>
+                <div className="absolute top-[54px] bottom-[150px] left-[22.5px] md:left-[38.5px] w-[2px] bg-zinc-800 rounded-full" />
+                <motion.div 
+                  className="absolute top-[54px] bottom-[150px] left-[22px] md:left-[38px] w-[3px] bg-white rounded-full origin-top z-10"
+                  style={{ 
+                    scaleY: smoothCert,
+                    boxShadow: "0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255, 255, 255, 0.5)"
+                  }}
+                />
+
+                <div className="flex flex-col">
+                  {certificationItems.map((item, index) => (
+                    <TimelineItemNode 
+                      key={item.id} 
+                      item={item} 
+                      progress={smoothCert} 
+                      index={index} 
+                      total={certificationItems.length} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* VOLUNTEERING */}
+          {volunteeringItems.length > 0 && (
+            <div>
+              <div className="pl-16 md:pl-28 pb-6">
+                <h3 className="text-lg md:text-xl font-bold uppercase tracking-widest text-zinc-100 border-b border-zinc-800/80 pb-3 mb-6">
+                  Volunteering at Organizations
+                </h3>
+              </div>
+              
+              <div className="relative" ref={volRef}>
+                <div className="absolute top-[54px] bottom-[150px] left-[22.5px] md:left-[38.5px] w-[2px] bg-zinc-800 rounded-full" />
+                <motion.div 
+                  className="absolute top-[54px] bottom-[150px] left-[22px] md:left-[38px] w-[3px] bg-white rounded-full origin-top z-10"
+                  style={{ 
+                    scaleY: smoothVol,
+                    boxShadow: "0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255, 255, 255, 0.5)"
+                  }}
+                />
+
+                <div className="flex flex-col">
+                  {volunteeringItems.map((item, index) => (
+                    <TimelineItemNode 
+                      key={item.id} 
+                      item={item} 
+                      progress={smoothVol} 
+                      index={index} 
+                      total={volunteeringItems.length} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
@@ -380,7 +518,6 @@ function TimelineItemNode({ item, progress, index, total }: any) {
 
       <div className="grid grid-cols-12 gap-4 border-b border-zinc-800/50 pb-12 group-hover:border-zinc-600 transition-colors">
         <div className="col-span-12 md:col-span-3 font-mono text-[11px] tracking-wider flex items-start pt-1 transition-colors duration-300" style={{ color: lit ? '#fff' : '#71717a' }}>
-          <span className={`mr-3 ${lit ? 'text-zinc-300' : 'text-zinc-600'}`}>({item.num})</span>
           <span>{item.period}</span>
         </div>
         <div className="col-span-12 md:col-span-9">
@@ -493,7 +630,7 @@ function ProjectsPage({ onBack, onNext }: { onBack: () => void, onNext: () => vo
           </div>
           <div className="col-span-12 md:col-span-4 pb-1 md:pb-3">
             <p className="text-sm md:text-base leading-relaxed text-zinc-400">
-              A curated selection of structural interfaces and digital environments.
+              A few frontend projects and web apps I've designed and built.
             </p>
           </div>
         </header>
@@ -624,7 +761,7 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
   );
 }
 
-function ProjectCard({ project, scrollContainer, isFirstProject }: { project: ProjectItem, scrollContainer: React.RefObject<HTMLDivElement>, isFirstProject: boolean }) {
+function ProjectCard({ project, scrollContainer, isFirstProject }: { project: ProjectItem, scrollContainer: React.RefObject<HTMLDivElement>, isFirstProject: boolean, key?: any }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const total = project.screenshots.length;
@@ -743,7 +880,7 @@ function ProjectCard({ project, scrollContainer, isFirstProject }: { project: Pr
   );
 }
 
-function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: string, index: number, logicalSegmentMV: any, projectTitle: string }) {
+function ScreenshotItem({ src, index, logicalSegmentMV, projectTitle }: { src: string, index: number, logicalSegmentMV: any, projectTitle: string, key?: any }) {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const range = [index - 1, index, index + 1];
   
@@ -880,7 +1017,7 @@ function NetworkPage({ onBack }: { onBack: () => void }) {
   );
 }
 
-function LinkItem({ link, IconComponent }: { link: any, IconComponent: any }) {
+function LinkItem({ link, IconComponent }: { link: any, IconComponent: any, key?: any }) {
   const [copied, setCopied] = useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
