@@ -188,7 +188,7 @@ export default function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.8 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="absolute left-1/2 top-[70%] -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[80vh] md:w-[60vw] md:h-[80vh] -z-10 pointer-events-none flex justify-center items-center"
+                    className="absolute left-1/2 top-[100%] -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[80vh] md:w-[60vw] md:h-[80vh] -z-10 pointer-events-none flex justify-center items-center"
                     style={{
                       maskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)",
                       WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)"
