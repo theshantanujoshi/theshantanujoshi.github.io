@@ -181,6 +181,18 @@ export default function App() {
             </div>
             <div className="flex-1 flex flex-col justify-end w-full pb-12 pointer-events-none relative z-10 px-6">
               <div className="flex flex-col items-center justify-center w-full z-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="mb-8 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-20 relative group md:-ml-32 -ml-20"
+                >
+                  <img 
+                    src="/profilepicture.png" 
+                    alt="Shantanu Joshi" 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  />
+                </motion.div>
                 <h1 
                   className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >

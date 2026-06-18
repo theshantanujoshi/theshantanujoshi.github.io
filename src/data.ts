@@ -283,5 +283,6 @@ export const LINKS_DATA = [
   { id: 'twitter', label: 'Twitter', icon: 'Twitter', url: 'https://x.com/okayjoshiji' },
   { id: 'substack', label: 'Substack', icon: 'BookOpen', url: 'https://okayjoshiji.substack.com/' },
   { id: 'instagram', label: 'Instagram', icon: 'Instagram', url: 'https://www.instagram.com/ashanthumain/' },
-  { id: 'discord', label: 'Discord', icon: 'Discord', url: '#', copyText: '@baakisabmast' }
+  { id: 'discord', label: 'Discord', icon: 'Discord', url: '#', copyText: '@baakisabmast' },
+  { id: 'design', label: 'Design Philosophy', icon: 'BookOpen', url: '/make-anything-beautiful.pdf' }
 ];
