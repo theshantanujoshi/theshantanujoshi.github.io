@@ -186,19 +186,20 @@ export default function App() {
                 >
                   <motion.div
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.3 }}
+                    animate={{ opacity: 0.8 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                     className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[80vh] md:w-[60vw] md:h-[80vh] -z-10 pointer-events-none flex justify-center items-center"
                     style={{
-                      maskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-                      WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)"
+                      maskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)",
+                      WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 80%)"
                     }}
                   >
                     <img 
                       src="/profilepicture.png" 
                       alt="" 
-                      className="w-full h-full object-cover object-center grayscale transition-all duration-1000 group-hover:scale-105" 
+                      className="w-full h-full object-cover object-center transition-all duration-1000 group-hover:scale-105" 
                     />
+                    <div className="absolute inset-0 bg-black/20 mix-blend-multiply"></div>
                   </motion.div>
 
                   Shantanu <span className="italic font-light">Joshi</span>
