@@ -185,18 +185,20 @@ export default function App() {
                   className="font-sans text-5xl sm:text-6xl md:text-[6.5vw] font-extrabold tracking-tight md:tracking-[-0.04em] uppercase leading-none select-none text-center m-0 pointer-events-auto group relative w-fit mx-auto"
                 >
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[320px] md:h-[320px] -z-10 rounded-full overflow-hidden border border-zinc-800/30 opacity-40 pointer-events-none shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.3 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[80vh] md:w-[60vw] md:h-[80vh] -z-10 pointer-events-none flex justify-center items-center"
+                    style={{
+                      maskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+                      WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)"
+                    }}
                   >
                     <img 
                       src="/profilepicture.png" 
                       alt="" 
-                      className="w-full h-full object-cover grayscale object-top group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                      className="w-full h-full object-cover object-center grayscale transition-all duration-1000 group-hover:scale-105" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#131313]/90"></div>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#131313_100%)]"></div>
                   </motion.div>
 
                   Shantanu <span className="italic font-light">Joshi</span>
