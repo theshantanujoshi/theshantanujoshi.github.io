@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useState } from 'react';
 import {
   motion,
   useScroll,
@@ -10,7 +10,22 @@ import {
 } from 'motion/react';
 import './ScrollVelocity.css';
 
-function useElementWidth(ref) {
+interface ScrollVelocityProps {
+  scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
+  texts?: string[];
+  velocity?: number;
+  className?: string;
+  damping?: number;
+  stiffness?: number;
+  numCopies?: number;
+  velocityMapping?: { input: number[]; output: number[] };
+  parallaxClassName?: string;
+  scrollerClassName?: string;
+  parallaxStyle?: React.CSSProperties;
+  scrollerStyle?: React.CSSProperties;
+}
+
+function useElementWidth(ref: React.RefObject<HTMLElement | null>) {
   const [width, setWidth] = useState(0);
 
   useLayoutEffect(() => {
@@ -27,7 +42,7 @@ function useElementWidth(ref) {
   return width;
 }
 
-export const ScrollVelocity = ({
+export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
   scrollContainerRef,
   texts = [],
   velocity = 100,
@@ -54,7 +69,7 @@ export const ScrollVelocity = ({
     scrollerClassName,
     parallaxStyle,
     scrollerStyle
-  }) {
+  }: any) {
     const baseX = useMotionValue(0);
     const scrollOptions = scrollContainerRef ? { container: scrollContainerRef } : {};
     const { scrollY } = useScroll(scrollOptions);
@@ -68,12 +83,12 @@ export const ScrollVelocity = ({
       velocityMapping?.input || [0, 1000],
       velocityMapping?.output || [0, 5],
       { clamp: false }
-    );
+    ) as any;
 
-    const copyRef = useRef(null);
+    const copyRef = useRef<HTMLSpanElement>(null);
     const copyWidth = useElementWidth(copyRef);
 
-    function wrap(min, max, v) {
+    function wrap(min: number, max: number, v: number) {
       const range = max - min;
       const mod = (((v - min) % range) + range) % range;
       return mod + min;
