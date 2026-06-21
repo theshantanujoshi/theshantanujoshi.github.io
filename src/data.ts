@@ -3,15 +3,6 @@ import { TimelineItem, JournalItem, ProjectItem } from './types';
 export const TIMELINE_DATA: TimelineItem[] = [
   // --- WORK EXPERIENCE ---
   {
-    id: 'frame-theory',
-    period: 'JUN 2026 — PRESENT',
-    company: 'FRAME THEORY',
-    role: 'BUSINESS DEVELOPMENT ASSOCIATE',
-    details: 'At Frame Theory, I spend most of my time prospecting, sending cold emails, and networking on LinkedIn to start real conversations with founders and decision makers. Instead of pitching generic services, I look at where a brand is lagging online, break the ice, and set up strategy meetings with our leadership team to take things forward.',
-    stack: ['Business Development', 'Lead Generation', 'Sales Prospecting', 'Cold Outreach'],
-    category: 'work'
-  },
-  {
     id: 'bits-bytes-head',
     period: 'MAY 2026 — PRESENT',
     company: 'BITS&BYTES',
