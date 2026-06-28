@@ -730,29 +730,7 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
             </h2>
           </header>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-6 w-full">
-            {JOURNAL_DATA.map((post, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "50px" }}
-                transition={{ duration: 0.6, delay: (idx % 5) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                style={{ contentVisibility: 'auto', containIntrinsicSize: '400px' }}
-                className="w-full aspect-square rounded-xl overflow-hidden group cursor-pointer relative border border-zinc-900 bg-[#1a1a1a] snap-start scroll-mt-32"
-              >
-                {post.imageUrl && (
-                  <img 
-                    src={post.imageUrl} 
-                    alt={post.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 z-0"
-                  />
-                )}
-              </motion.div>
-            ))}
-          </div>
+          <HoverExpandGallery images={JOURNAL_DATA.slice(0, 10)} />
 
         </div>
       </div>
@@ -1060,5 +1038,79 @@ function LinkItem({ link, IconComponent }: { link: any, IconComponent: any, key?
         {copied ? '✓' : '↗'}
       </span>
     </a>
+  );
+}
+
+function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA, className?: string }) {
+  const [activeImage, setActiveImage] = useState<number | null>(1);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, translateY: 20 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+      className={`relative w-full max-w-[100vw] overflow-x-auto overflow-y-hidden pb-8 px-2 md:px-5 hide-scrollbar ${className || ''}`}
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-fit md:w-full min-w-max md:min-w-0"
+      >
+        <div className="flex items-center justify-center gap-1 md:gap-2">
+          {images.map((image, index) => (
+            <motion.div
+              key={index}
+              className="relative cursor-pointer overflow-hidden rounded-xl md:rounded-3xl shrink-0"
+              initial={{ width: "2.5rem", height: "16rem" }}
+              animate={{
+                width: activeImage === index ? (typeof window !== 'undefined' && window.innerWidth < 768 ? "18rem" : "28rem") : (typeof window !== 'undefined' && window.innerWidth < 768 ? "2.5rem" : "5rem"),
+                height: activeImage === index ? (typeof window !== 'undefined' && window.innerWidth < 768 ? "20rem" : "28rem") : (typeof window !== 'undefined' && window.innerWidth < 768 ? "20rem" : "28rem"),
+              }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              onClick={() => setActiveImage(index)}
+              onHoverStart={() => setActiveImage(index)}
+            >
+              <AnimatePresence>
+                {activeImage === index && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute h-full w-full bg-gradient-to-t from-[#131313]/90 via-[#131313]/20 to-transparent z-10"
+                  />
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {activeImage === index && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute flex h-full w-full flex-col items-start justify-end p-4 md:p-6 z-20"
+                  >
+                    <p className="text-left text-sm md:text-lg font-bold text-white uppercase tracking-widest">
+                      {image.title}
+                    </p>
+                    <p className="text-left text-xs text-zinc-400 mt-1 uppercase tracking-widest">
+                      {image.category}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {image.imageUrl && (
+                <img
+                  src={image.imageUrl}
+                  className={`absolute inset-0 size-full object-cover transition-all duration-700 ${activeImage === index ? 'grayscale-0' : 'grayscale opacity-60'}`}
+                  alt={image.imageAlt || image.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
