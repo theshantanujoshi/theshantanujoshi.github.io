@@ -1071,33 +1071,7 @@ function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA
               onClick={() => setActiveImage(index)}
               onHoverStart={() => setActiveImage(index)}
             >
-              <AnimatePresence>
-                {activeImage === index && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute h-full w-full bg-gradient-to-t from-[#131313]/90 via-[#131313]/20 to-transparent z-10"
-                  />
-                )}
-              </AnimatePresence>
-              <AnimatePresence>
-                {activeImage === index && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute flex h-full w-full flex-col items-start justify-end p-4 md:p-6 z-20"
-                  >
-                    <p className="text-left text-sm md:text-lg font-bold text-white uppercase tracking-widest">
-                      {image.title}
-                    </p>
-                    <p className="text-left text-xs text-zinc-400 mt-1 uppercase tracking-widest">
-                      {image.category}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
               {image.imageUrl && (
                 <img
                   src={image.imageUrl}
