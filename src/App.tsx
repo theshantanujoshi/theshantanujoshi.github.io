@@ -722,7 +722,7 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
           />
         </div>
 
-        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col gap-12 md:gap-16 relative z-10">
+        <div className="w-full h-[100dvh] max-w-screen-2xl mx-auto px-6 md:px-12 flex flex-col justify-center gap-8 relative z-10">
           
           <header className="flex flex-col">
             <h2 className="text-[6vw] md:text-[5vw] font-extrabold uppercase tracking-tighter leading-none select-none text-white">
@@ -730,7 +730,7 @@ function GalleryPage({ onBack, onNext }: { onBack: () => void, onNext: () => voi
             </h2>
           </header>
 
-          <HoverExpandGallery images={JOURNAL_DATA.slice(0, 10)} />
+          <HoverExpandGallery images={JOURNAL_DATA} />
 
         </div>
       </div>
@@ -1055,9 +1055,9 @@ function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="w-fit md:w-full min-w-max md:min-w-0"
+        className="w-fit min-w-max mx-auto"
       >
-        <div className="flex items-center justify-center gap-1 md:gap-2">
+        <div className="flex items-center justify-start gap-1 md:gap-2 px-4 md:px-8">
           {images.map((image, index) => (
             <motion.div
               key={index}
