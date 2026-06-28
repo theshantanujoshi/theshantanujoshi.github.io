@@ -1049,17 +1049,38 @@ function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA
     const container = containerRef.current;
     if (!container) return;
 
+    let lastWheelTime = 0;
+
     const handleWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) > 0) {
         e.preventDefault();
         e.stopPropagation();
-        container.scrollLeft += e.deltaY;
+
+        const now = Date.now();
+        if (now - lastWheelTime < 150) return; // Throttled to 150ms for a smooth parse effect
+        lastWheelTime = now;
+
+        const direction = Math.sign(e.deltaY);
+        setActiveImage((prev) => {
+          if (prev === null) return direction > 0 ? 1 : 0;
+          return Math.max(0, Math.min(images.length - 1, prev + direction));
+        });
       }
     };
 
     container.addEventListener('wheel', handleWheel, { passive: false });
     return () => container.removeEventListener('wheel', handleWheel);
-  }, []);
+  }, [images]);
+
+  // Center the newly active image
+  useEffect(() => {
+    if (activeImage !== null && containerRef.current) {
+      const target = document.getElementById(`gallery-item-${activeImage}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }, [activeImage]);
 
   return (
     <motion.div
@@ -1078,6 +1099,7 @@ function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA
         <div className="flex items-center justify-start gap-1 md:gap-2 px-4 md:px-8">
           {images.map((image, index) => (
             <motion.div
+              id={`gallery-item-${index}`}
               key={index}
               className="relative cursor-pointer overflow-hidden rounded-xl md:rounded-3xl shrink-0"
               initial={{ width: "2.5rem", height: "16rem" }}
