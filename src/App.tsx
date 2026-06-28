@@ -1043,9 +1043,27 @@ function LinkItem({ link, IconComponent }: { link: any, IconComponent: any, key?
 
 function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA, className?: string }) {
   const [activeImage, setActiveImage] = useState<number | null>(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        container.scrollLeft += e.deltaY;
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, []);
 
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0, translateY: 20 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ duration: 0.3, delay: 0.2 }}
