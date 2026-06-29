@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, animate } from 'motion/react';
 import { ScrollVelocity } from './components/ScrollVelocity';
 import { TIMELINE_DATA, PROJECTS_DATA, JOURNAL_DATA, LINKS_DATA } from './data';
 import { FileText, Calendar, Linkedin, Github, Mail, Phone, Twitter, BookOpen, Instagram, Menu, X } from 'lucide-react';
@@ -1072,13 +1072,29 @@ function HoverExpandGallery({ images, className }: { images: typeof JOURNAL_DATA
     return () => container.removeEventListener('wheel', handleWheel);
   }, [images]);
 
-  // Center the newly active image
+  // Smoothly center the newly active image matching the expansion animation
   useEffect(() => {
     if (activeImage !== null && containerRef.current) {
-      const target = document.getElementById(`gallery-item-${activeImage}`);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
+      const container = containerRef.current;
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      
+      const rem = 16;
+      const inactiveWidth = (isMobile ? 2.5 : 5) * rem;
+      const activeWidth = (isMobile ? 18 : 28) * rem;
+      const gap = (isMobile ? 0.25 : 0.5) * rem;
+      const padding = (isMobile ? 1 : 2) * rem;
+
+      const targetCenter = padding + (activeImage * (inactiveWidth + gap)) + (activeWidth / 2);
+      const containerCenter = container.clientWidth / 2;
+      const targetScrollLeft = targetCenter - containerCenter;
+
+      animate(container.scrollLeft, targetScrollLeft, {
+        onUpdate: (latest) => {
+          if (container) container.scrollLeft = latest;
+        },
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1]
+      });
     }
   }, [activeImage]);
 
